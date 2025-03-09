@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class SellerRequest implements Serializable {
+public class CreateSellerRequest implements Serializable {
 
     @NotNull(message = "Seller ID cannot be null")
     private UUID id;

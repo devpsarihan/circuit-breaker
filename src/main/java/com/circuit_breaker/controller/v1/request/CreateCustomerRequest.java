@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CustomerRequest implements Serializable {
+public class CreateCustomerRequest implements Serializable {
 
     @NotNull(message = "Customer ID cannot be null")
     private UUID id;

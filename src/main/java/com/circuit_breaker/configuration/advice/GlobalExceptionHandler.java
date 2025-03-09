@@ -1,7 +1,7 @@
-package com.redis_app.configuration.advice;
+package com.circuit_breaker.configuration.advice;
 
-import com.redis_app.configuration.advice.exception.RedisApiErrorResponse;
-import com.redis_app.configuration.advice.exception.RedisApiException;
+import com.circuit_breaker.configuration.advice.exception.CircuitBreakerErrorResponse;
+import com.circuit_breaker.configuration.advice.exception.CircuitBreakerApiException;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,10 +19,10 @@ public class GlobalExceptionHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
-    @ExceptionHandler(value = RedisApiException.class)
-    public ResponseEntity<RedisApiErrorResponse> redisApiExceptionHandler(RedisApiException e) {
+    @ExceptionHandler(value = CircuitBreakerApiException.class)
+    public ResponseEntity<CircuitBreakerErrorResponse> circuitBreakerApiExceptionHandler(CircuitBreakerApiException e) {
         logger.info("Api related exception => {}", e.getMessage());
-        RedisApiErrorResponse errorResponse = RedisApiErrorResponse.builder()
+        CircuitBreakerErrorResponse errorResponse = CircuitBreakerErrorResponse.builder()
             .code(e.getCode())
             .message(e.getMessage())
             .build();

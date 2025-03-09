@@ -14,17 +14,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class OrderRequest {
+public class CreateOrderRequest {
 
     @NotEmpty(message = "Items cannot be empty")
     @Size(max = 20, message = "The items set can contain a maximum of 20 items")
-    private Set<ItemRequest> items;
+    private Set<CreateItemRequest> items;
 
     @NotNull(message = "Seller cannot be null")
-    private SellerRequest seller;
+    private CreateSellerRequest seller;
 
     @NotNull(message = "Customer cannot be null")
-    private CustomerRequest customer;
+    private CreateCustomerRequest customer;
 
     @NotEmpty(message = "Invoice address cannot be empty")
     private String invoiceAddress;

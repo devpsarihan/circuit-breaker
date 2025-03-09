@@ -10,31 +10,51 @@ spring:
       auto-index-creation: true
 
 springdoc:
+  api-docs:
+    path: /v3/api-docs
   swagger-ui:
     path: /doc
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    metrics:
+      enabled: true
+
 logging:
   level:
-    root: INFO
+    ROOT: INFO
+    io.github.resilience4j: DEBUG
     org.springframework.web: DEBUG
 
-# Resilience4j Circuit Breaker Configurations
 resilience4j:
   circuitbreaker:
     instances:
       createOrder:
+        register-health-indicator: true
+        failure-rate-threshold: 5
         slow-call-rate-threshold: 10
         slow-call-duration-threshold: 2500ms
-        minimum-number-of-calls: 300
-        failure-rate-threshold: 10
+        minimum-number-of-calls: 100
         wait-duration-in-open-state: 5000ms
         automatic-transition-from-open-to-half-open-enabled: true
+        sliding-window-type: COUNT_BASED
+        sliding-window-size: 10
+        permitted-number-of-calls-in-half-open-state: 10
       updateOrderStatus:
+        register-health-indicator: true
+        failure-rate-threshold: 5
         slow-call-rate-threshold: 10
         slow-call-duration-threshold: 2500ms
-        minimum-number-of-calls: 300
-        failure-rate-threshold: 10
+        minimum-number-of-calls: 100
         wait-duration-in-open-state: 5000ms
         automatic-transition-from-open-to-half-open-enabled: true
+        sliding-window-type: COUNT_BASED
+        sliding-window-size: 10
+        permitted-number-of-calls-in-half-open-state: 10
   bulkhead:
     instances:
       createOrder:
@@ -54,8 +74,8 @@ resilience4j:
   timelimiter:
     instances:
       createOrder:
+        timeout-duration: 1000ms
         cancel-running-future: true
-        timeout-duration: 2500ms
       updateOrderStatus:
+        timeout-duration: 1000ms
         cancel-running-future: true
-        timeout-duration: 2500ms

@@ -1,23 +1,22 @@
 package com.circuit_breaker.persistence.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@SuperBuilder
-@Entity
-@Table(schema = "CB", name = "SELLER")
-@EqualsAndHashCode(callSuper = true)
-public class Product extends BaseEntity{
+@Builder
+public class Item implements Serializable {
 
+    private UUID contentId;
     private String name;
     private String description;
-    private String category;
+    private Integer quantity;
+    private BigDecimal price;
 }

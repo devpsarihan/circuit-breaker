@@ -1,4 +1,4 @@
-package com.circuit_breaker.configuration;
+package com.circuit_breaker.configuration.mongo;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

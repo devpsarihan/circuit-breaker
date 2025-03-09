@@ -1,4 +1,4 @@
-package com.redis_app.configuration.advice.exception;
+package com.circuit_breaker.configuration.advice.exception;
 
 import java.io.Serializable;
 import lombok.AllArgsConstructor;
@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class RedisApiErrorResponse implements Serializable {
+public class CircuitBreakerErrorResponse implements Serializable {
 
     private String code;
     private String message;

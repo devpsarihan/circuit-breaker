@@ -1,4 +1,4 @@
-package com.redis_app.configuration.advice.exception;
+package com.circuit_breaker.configuration.advice.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,7 +7,8 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum ErrorCode {
 
-    PRODUCT_NOT_FOUND_ERROR("001", "Product is not found.", 404);
+    ORDER_NOT_FOUND_ERROR("001", "Order is not found.", 404),
+    ORDER_CREATION_FAILED_ERROR("002", "Order creation is failed.", 500);
 
     private final String code;
     private final String message;

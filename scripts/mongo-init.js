@@ -1,7 +1,4 @@
-rs.initiate();
-
-db = connect("mongodb://root:password@mongodb:27017/circuit-breaker?authSource=admin");
-
+db = connect("mongodb://mongodb:27017/circuit-breaker?replicaSet=rs0");
 db.getCollection('orders').drop();
 db.createCollection("orders");
 
@@ -29,12 +26,12 @@ db.getCollection('orders').insertMany([
     },
     "customer": {
       "id": "a290f1ee-6c54-4b01-90e6-d701748f0854",
-      "firstName": "John",
-      "lastName": "Doe",
-      "email": "john.doe@example.com"
+      "firstName": "CustomerFirstName1",
+      "lastName": "CustomerLastName1",
+      "email": "customer1@example.com"
     },
-    "invoiceAddress": "123 Invoice St.",
-    "shippingAddress": "456 Shipping Ave.",
+    "invoiceAddress": "Invoice Address",
+    "shippingAddress": "Shipping Address",
     "status": 0,
     "totalPrice": 50.00,
     "createdDate": new Date("2025-03-05T10:32:58Z"),
@@ -63,12 +60,12 @@ db.getCollection('orders').insertMany([
     },
     "customer": {
       "id": "b290f1ee-6c54-4b01-90e6-d701748f0854",
-      "firstName": "Jane",
-      "lastName": "Doe",
-      "email": "jane.doe@example.com"
+      "firstName": "CustomerFirstName2",
+      "lastName": "CustomerLastName2",
+      "email": "customer2@example.com"
     },
-    "invoiceAddress": "789 Invoice Blvd.",
-    "shippingAddress": "101 Shipping Rd.",
+    "invoiceAddress": "Invoice Address",
+    "shippingAddress": "Shipping Address",
     "status": 1,
     "totalPrice": 100.00,
     "createdDate": new Date("2025-03-05T10:32:58Z"),

@@ -5,13 +5,13 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CircuitBreakerException extends RuntimeException {
+public class CircuitBreakerApiException extends RuntimeException {
 
     private final String code;
     private final String message;
     private final Integer httpStatusCode;
 
-    public CircuitBreakerException(ErrorCode errorCode) {
+    public CircuitBreakerApiException(ErrorCode errorCode) {
         super(errorCode.getMessage());
         this.code = errorCode.getCode();
         this.message = errorCode.getMessage();
