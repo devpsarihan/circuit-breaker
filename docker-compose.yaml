@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:8.0
+    container_name: mongodb
+    restart: always
+    environment:
+      - "MONGO_INITDB_DATABASE: circuit-breaker"
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - circuit-breaker-network
+    command: [ "--replSet", "rs0" ]
+    entrypoint: [ "/bin/bash", "-c", "docker-entrypoint.sh mongod --replSet rs0 --bind_ip_all & sleep 5 && mongosh --eval 'rs.initiate()' && tail -f /dev/null" ]
+  mongo-setup:
+    image: mongo:8.0
+    container_name: mongo-setup
+    depends_on:
+      - mongodb
+    links:
+      - mongodb:mongodb
+    restart: "no"
+    entrypoint: [ "bash", "-c", "sleep 10 && mongosh --host mongodb:27017 /scripts/mongo-init.js" ]
+    volumes:
+      - ./scripts/mongo-init.js:/scripts/mongo-init.js
+    networks:
+      - circuit-breaker-network
+  circuit-breaker-app:
+    image: circuit-breaker-image:latest
+    container_name: circuit-breaker
+    restart: on-failure
+    ports:
+      - '8080:8080'
+    environment:
+      - 'MONGODB_DB_URL=mongodb://mongodb:27017/circuit-breaker?replicaSet=rs0'
+    depends_on:
+      - mongodb
+    networks:
+      - circuit-breaker-network
+
+volumes:
+  mongodb_data:
+    driver: local
+
+networks:
+  circuit-breaker-network:
+    driver: bridge

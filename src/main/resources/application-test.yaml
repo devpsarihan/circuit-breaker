@@ -1,0 +1,60 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: circuit-breaker-app
+  data:
+    mongodb:
+      uri: ${MONGODB_DB_URL:mongodb://mongodb:27017/circuit-breaker?replicaSet=rs0}
+      database: circuit-breaker
+      auto-index-creation: true
+  testcontainers:
+    enabled: true
+    reuse:
+      enabled: true
+springdoc:
+  swagger-ui:
+    path: /doc
+
+# Resilience4j Circuit Breaker Configurations
+resilience4j:
+  circuitbreaker:
+    instances:
+      createOrder:
+        slow-call-rate-threshold: 10
+        slow-call-duration-threshold: 2500ms
+        minimum-number-of-calls: 300
+        failure-rate-threshold: 10
+        wait-duration-in-open-state: 5000ms
+        automatic-transition-from-open-to-half-open-enabled: true
+      updateOrderStatus:
+        slow-call-rate-threshold: 10
+        slow-call-duration-threshold: 2500ms
+        minimum-number-of-calls: 300
+        failure-rate-threshold: 10
+        wait-duration-in-open-state: 5000ms
+        automatic-transition-from-open-to-half-open-enabled: true
+  bulkhead:
+    instances:
+      createOrder:
+        max-concurrent-calls: 100
+      updateOrderStatus:
+        max-concurrent-calls: 100
+  thread-pool-bulkhead:
+    instances:
+      createOrder:
+        max-thread-pool-size: 100
+        core-thread-pool-size: 80
+        queue-capacity: 100
+      updateOrderStatus:
+        max-thread-pool-size: 100
+        core-thread-pool-size: 80
+        queue-capacity: 100
+  timelimiter:
+    instances:
+      createOrder:
+        cancel-running-future: true
+        timeout-duration: 2500ms
+      updateOrderStatus:
+        cancel-running-future: true
+        timeout-duration: 2500ms
