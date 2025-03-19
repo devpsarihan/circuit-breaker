@@ -1,4 +1,4 @@
-package com.circuit_breaker.persistence.entity;
+package com.circuit_breaker.persistence.document;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

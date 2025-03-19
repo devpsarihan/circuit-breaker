@@ -1,4 +1,4 @@
-package com.circuit_breaker.persistence.entity;
+package com.circuit_breaker.persistence.document;
 
 import java.io.Serializable;
 import java.util.UUID;
@@ -11,10 +11,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Customer implements Serializable {
+public class Seller implements Serializable {
 
     private UUID id;
-    private String firstName;
-    private String lastName;
-    private String email;
+    private String sellerName;
 }
+

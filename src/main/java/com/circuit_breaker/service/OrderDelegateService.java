@@ -6,7 +6,7 @@ import com.circuit_breaker.controller.v1.request.CreateOrderRequest;
 import com.circuit_breaker.converter.OrderConverter;
 import com.circuit_breaker.model.dto.OrderDto;
 import com.circuit_breaker.persistence.Status;
-import com.circuit_breaker.persistence.entity.Order;
+import com.circuit_breaker.persistence.document.Order;
 import com.circuit_breaker.persistence.repository.OrderMongoRepository;
 import io.github.resilience4j.bulkhead.annotation.Bulkhead;
 import io.github.resilience4j.bulkhead.annotation.Bulkhead.Type;
